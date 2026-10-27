@@ -22,10 +22,10 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-      <div className="h-20 max-w-[90rem] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop 2xl:px-gutter-2xl flex items-center justify-between gap-space-md">
-        <Link href="/" className="flex items-center gap-space-sm shrink-0" onClick={() => setOpen(false)}>
-          <Image src="/logo.png" alt="Logo RED INFORMÁTICA" width={44} height={44} className="h-11 w-11 rounded-xl object-contain" priority />
-          <span className="font-headline-sm text-headline-sm tracking-tight text-on-surface">RED INFORMÁTICA</span>
+      <div className="h-20 max-w-[90rem] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop 2xl:px-gutter-2xl flex items-center justify-between gap-space-xs sm:gap-space-md">
+        <Link href="/" className="flex items-center gap-space-xs sm:gap-space-sm min-w-0" onClick={() => setOpen(false)}>
+          <Image src="/logo.png" alt="Logo RED INFORMÁTICA" width={44} height={44} className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl object-contain shrink-0" priority />
+          <span className="font-headline-sm text-[16px] leading-6 min-[400px]:text-headline-sm tracking-tight text-on-surface whitespace-nowrap truncate">RED INFORMÁTICA</span>
         </Link>
 
         <nav className="hidden xl:flex items-center gap-space-2xs">
@@ -45,7 +45,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-space-sm">
+        <div className="flex items-center gap-space-xs sm:gap-space-sm shrink-0">
           <ThemeToggle />
           <a
             href="/contacto"
