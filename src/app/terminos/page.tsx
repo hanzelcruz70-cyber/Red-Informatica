@@ -85,8 +85,10 @@ export default function Terminos() {
 
       <Seccion titulo="9. Reseñas">
         <p>
-          Las reseñas deben reflejar experiencias reales con nuestros servicios. Las revisamos antes de
-          publicarlas y no publicamos contenido ofensivo, publicidad ni datos personales de terceros.
+          Solo pueden dejar reseña en este sitio los clientes que recibieron un servicio: al terminar cada
+          trabajo enviamos un enlace personal que se usa una sola vez. Publicamos las reseñas tal como las
+          escriben, sean positivas o negativas; solo ocultamos contenido ofensivo, publicidad o datos personales de
+          terceros.
         </p>
       </Seccion>
 

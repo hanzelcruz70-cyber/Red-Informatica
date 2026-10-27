@@ -32,8 +32,9 @@ export default function Privacidad() {
             electrónico, el servicio que te interesa y el mensaje que nos escribes.
           </li>
           <li>
-            <strong className="text-on-surface">Reseñas:</strong> el nombre que decidas mostrar, el servicio recibido,
-            la calificación y tu comentario.
+            <strong className="text-on-surface">Reseñas:</strong> el nombre y la ciudad que decidas mostrar, el
+            servicio recibido, la calificación y tu comentario. Para verificar que eres cliente, guardamos el enlace
+            personal que te enviamos y la fecha en que lo usaste.
           </li>
           <li>
             <strong className="text-on-surface">Datos técnicos:</strong> tu dirección IP se usa de forma temporal para
@@ -49,7 +50,7 @@ export default function Privacidad() {
       <Seccion titulo="3. Para qué los usamos">
         <ul className="list-disc pl-space-lg space-y-space-2xs">
           <li>Responder tu consulta, darte un diagnóstico o cotización y coordinar el servicio o la reserva.</li>
-          <li>Publicar tu reseña en el sitio, solo después de revisarla.</li>
+          <li>Publicar tu reseña verificada en el sitio.</li>
           <li>Proteger el sitio contra abusos y spam.</li>
         </ul>
         <p>

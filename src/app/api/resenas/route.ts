@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
-import { resenaSchema } from "@/lib/resenas";
+import { buscarInvitacion, resenaSchema } from "@/lib/resenas";
 
-const MAX = 3;
+const MAX = 5;
 const WINDOW_MS = 60 * 60 * 1000;
 const MAX_BODY_BYTES = 4 * 1024;
 const hits = new Map<string, { count: number; reset: number }>();
@@ -35,14 +36,14 @@ async function avisar(r: { nombre: string; servicio: string; estrellas: number; 
       body: JSON.stringify({
         from: "Reseñas RED INFORMÁTICA <onboarding@resend.dev>",
         to: [process.env.NOTIFY_EMAIL ?? "redinformaticatotal@gmail.com"],
-        subject: `Nueva reseña (${r.estrellas}★) pendiente de aprobar`,
+        subject: `Nueva reseña verificada (${r.estrellas}★) de ${r.nombre}`,
         html: `
-          <h2 style="margin:0 0 12px;">Nueva reseña pendiente</h2>
-          <p><strong>Nombre:</strong> ${escapeHtml(r.nombre)}</p>
+          <h2 style="margin:0 0 12px;">Nueva reseña verificada publicada</h2>
+          <p><strong>Cliente:</strong> ${escapeHtml(r.nombre)}</p>
           <p><strong>Servicio:</strong> ${escapeHtml(r.servicio)}</p>
           <p><strong>Estrellas:</strong> ${"★".repeat(r.estrellas)}${"☆".repeat(5 - r.estrellas)}</p>
           <p style="white-space:pre-wrap;border-left:3px solid #002eb4;padding-left:12px;">${escapeHtml(r.comentario)}</p>
-          <p>Apruébala o elimínala desde tu panel privado → pestaña Reseñas.</p>
+          <p>Ya está publicada en red-informatica.com/resenas. Desde tu panel puedes responderla u ocultarla.</p>
         `,
       }),
     });
@@ -51,11 +52,12 @@ async function avisar(r: { nombre: string; servicio: string; estrellas: number; 
   }
 }
 
+/** Solo acepta reseñas que traen un token de invitación válido y sin usar. */
 export async function POST(req: NextRequest) {
   try {
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? req.headers.get("x-real-ip") ?? "unknown";
     if (rateLimited(ip)) {
-      return NextResponse.json({ ok: false, error: "Ya enviaste varias reseñas. Intenta más tarde." }, { status: 429 });
+      return NextResponse.json({ ok: false, error: "Demasiados intentos. Intenta más tarde." }, { status: 429 });
     }
     if (Number(req.headers.get("content-length") ?? "0") > MAX_BODY_BYTES) {
       return NextResponse.json({ ok: false, error: "Reseña demasiado larga." }, { status: 413 });
@@ -65,26 +67,57 @@ export async function POST(req: NextRequest) {
     if (!parsed.success) {
       return NextResponse.json({ ok: false, error: parsed.error.issues[0]?.message ?? "Datos inválidos" }, { status: 400 });
     }
+    if (parsed.data.web) return NextResponse.json({ ok: true, message: "¡Gracias por tu reseña!" }, { status: 201 });
 
-    const gracias = { ok: true, message: "¡Gracias! Tu reseña se publicará después de revisarla." };
-    if (parsed.data.web) return NextResponse.json(gracias, { status: 201 });
-
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      return NextResponse.json({ ok: false, error: "Error del servidor. Intenta más tarde." }, { status: 500 });
+    const inv = await buscarInvitacion(parsed.data.token);
+    if (!inv) {
+      return NextResponse.json({ ok: false, error: "Este enlace de reseña no existe." }, { status: 404 });
+    }
+    if (inv.usada_at) {
+      return NextResponse.json({ ok: false, error: "Este enlace ya se usó para dejar una reseña." }, { status: 409 });
     }
 
-    const { nombre, servicio, estrellas, comentario } = parsed.data;
-    const { error } = await getSupabaseAdmin()
+    const sb = getSupabaseAdmin();
+    const { nombre, ciudad, estrellas, comentario } = parsed.data;
+
+    // Marca la invitación como usada primero (solo si sigue sin usar), para evitar dobles envíos.
+    const { data: marcada, error: e1 } = await sb
+      .from("resena_invitaciones")
+      .update({ usada_at: new Date().toISOString() })
+      .eq("id", inv.id)
+      .is("usada_at", null)
+      .select("id")
+      .maybeSingle();
+    if (e1 || !marcada) {
+      return NextResponse.json({ ok: false, error: "Este enlace ya se usó para dejar una reseña." }, { status: 409 });
+    }
+
+    const { data: resena, error } = await sb
       .from("resenas")
-      .insert({ nombre, servicio, estrellas, comentario, aprobada: false });
+      .insert({
+        nombre,
+        ciudad,
+        servicio: inv.servicio,
+        estrellas,
+        comentario,
+        aprobada: true,
+        verificada: true,
+        invitacion_id: inv.id,
+      })
+      .select("id")
+      .single();
 
-    if (error) {
-      console.error("resenas insert:", error.message);
-      return NextResponse.json({ ok: false, error: "No pudimos guardar tu reseña. Intenta más tarde." }, { status: 500 });
+    if (error || !resena) {
+      console.error("resenas insert:", error?.message);
+      await sb.from("resena_invitaciones").update({ usada_at: null }).eq("id", inv.id);
+      return NextResponse.json({ ok: false, error: "No pudimos guardar tu reseña. Intenta de nuevo." }, { status: 500 });
     }
 
-    await avisar({ nombre, servicio, estrellas, comentario });
-    return NextResponse.json(gracias, { status: 201 });
+    await sb.from("resena_invitaciones").update({ resena_id: resena.id }).eq("id", inv.id);
+    revalidatePath("/resenas");
+    await avisar({ nombre, servicio: inv.servicio, estrellas, comentario });
+
+    return NextResponse.json({ ok: true, message: "¡Gracias! Tu reseña ya está publicada." }, { status: 201 });
   } catch {
     return NextResponse.json({ ok: false, error: "Error inesperado. Intenta más tarde." }, { status: 500 });
   }

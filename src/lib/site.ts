@@ -11,3 +11,12 @@ export const TIKTOK = "https://www.tiktok.com/@red_informatica";
 export function waLink(mensaje: string) {
   return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
 }
+
+/**
+ * Perfil de Empresa en Google. Pega aquí los enlaces de tu perfil:
+ *  - GOOGLE_RESENAS_URL: en tu perfil → "Pedir reseñas" → copiar enlace (ej. https://g.page/r/XXXX/review)
+ *  - GOOGLE_MAPS_URL: el enlace de tu negocio en Google Maps (botón Compartir → copiar enlace)
+ * Mientras estén vacíos, el bloque de Google no se muestra.
+ */
+export const GOOGLE_RESENAS_URL = "";
+export const GOOGLE_MAPS_URL = "";
