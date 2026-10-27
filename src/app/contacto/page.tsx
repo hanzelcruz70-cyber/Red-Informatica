@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
 import Contact from "@/components/Contact";
+import MapSection from "@/components/MapSection";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -12,6 +13,7 @@ export default function ContactoPage() {
   return (
     <PageShell cta={false}>
       <Contact />
+      <MapSection />
     </PageShell>
   );
 }

@@ -68,7 +68,13 @@ const jsonLd = {
     addressCountry: "NI",
   },
   areaServed: ["Sébaco", "Matagalpa", "Nicaragua"],
-  sameAs: ["https://www.facebook.com/profile.php?id=61594252049186", "https://www.tiktok.com/@red_informatica"],
+  sameAs: [
+    "https://www.facebook.com/profile.php?id=61594252049186",
+    "https://www.tiktok.com/@red_informatica",
+    "https://maps.app.goo.gl/5Pwhh4GSEkdMJ47F8",
+  ],
+  hasMap: "https://maps.app.goo.gl/5Pwhh4GSEkdMJ47F8",
+  geo: { "@type": "GeoCoordinates", latitude: 12.8579, longitude: -86.1089 },
   priceRange: "$$",
   knowsAbout: [
     "Reparación de computadoras",

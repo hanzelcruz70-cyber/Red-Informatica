@@ -8,6 +8,7 @@ const csp = [
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https:",
   `connect-src 'self' https://*.supabase.co${isProd ? "" : " ws://localhost:*"}`,
+  "frame-src https://www.google.com https://maps.google.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
