@@ -13,6 +13,9 @@ export type Resena = {
   respuesta: string;
   aprobada: boolean;
   verificada: boolean;
+  /** 'enlace' = cliente verificado · 'google' = copiada de Google Maps */
+  origen?: "enlace" | "google";
+  fecha_resena?: string | null;
 };
 
 export type Invitacion = {
@@ -27,7 +30,11 @@ export type Invitacion = {
 
 export { SERVICIOS_RESENA };
 
-export const CAMPOS_RESENA = "id, created_at, nombre, ciudad, servicio, estrellas, comentario, respuesta, aprobada, verificada";
+export const CAMPOS_BASE = "id, created_at, nombre, ciudad, servicio, estrellas, comentario, respuesta, aprobada, verificada";
+export const CAMPOS_RESENA = `${CAMPOS_BASE}, origen, fecha_resena`;
+
+/** true si el error es porque todavía no se ejecutó resenas-google.sql */
+export const faltaColumnaGoogle = (msg?: string) => Boolean(msg && /origen|fecha_resena/.test(msg));
 
 const limpiar = (s: string) => s.replace(/[<>]/g, "").replace(/\u0000/g, "").trim();
 
@@ -52,26 +59,60 @@ export const resenaSchema = z.object({
   web: z.string().max(50).optional(),
 });
 
+/** Reseña de Google que copias desde tu panel. */
+export const resenaGoogleSchema = z.object({
+  nombre: z
+    .string({ required_error: "Escribe el nombre del cliente" })
+    .transform(limpiar)
+    .pipe(z.string().min(2, "Nombre demasiado corto").max(60, "Nombre demasiado largo")),
+  estrellas: z.coerce.number().int().min(1, "Elige de 1 a 5 estrellas").max(5, "Elige de 1 a 5 estrellas"),
+  comentario: z
+    .string()
+    .optional()
+    .transform((v) => limpiar(v ?? "").slice(0, 1500)),
+  fecha: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Fecha inválida")
+    .optional()
+    .or(z.literal("")),
+});
+
 function supabaseListo() {
   return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
 }
 
-/** Reseñas verificadas y publicadas. Nunca rompe la página: si algo falla, devuelve []. */
+/** Reseñas publicadas: las verificadas por enlace y las copiadas de Google. Nunca rompe la página. */
 export async function obtenerResenasPublicadas(limite = 24): Promise<Resena[]> {
   if (!supabaseListo()) return [];
   try {
-    const { data, error } = await getSupabaseAdmin()
+    const sb = getSupabaseAdmin();
+    const r1 = await sb
       .from("resenas")
       .select(CAMPOS_RESENA)
       .eq("aprobada", true)
-      .eq("verificada", true)
+      .or("verificada.eq.true,origen.eq.google")
       .order("created_at", { ascending: false })
       .limit(limite);
+    let data = r1.data as unknown[] | null;
+    let error = r1.error;
+    if (error && faltaColumnaGoogle(error.message)) {
+      // todavía no se ejecutó resenas-google.sql: muestra solo las verificadas
+      const r2 = await sb
+        .from("resenas")
+        .select(CAMPOS_BASE)
+        .eq("aprobada", true)
+        .eq("verificada", true)
+        .order("created_at", { ascending: false })
+        .limit(limite);
+      data = r2.data as unknown[] | null;
+      error = r2.error;
+    }
     if (error) {
       console.error("resenas select:", error.message);
       return [];
     }
-    return (data ?? []) as Resena[];
+    const fechaDe = (r: Resena) => new Date(r.fecha_resena ? `${r.fecha_resena}T12:00:00` : r.created_at).getTime();
+    return ((data ?? []) as Resena[]).sort((x, y) => fechaDe(y) - fechaDe(x));
   } catch (e) {
     console.error("resenas:", e);
     return [];

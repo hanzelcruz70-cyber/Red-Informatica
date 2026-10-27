@@ -25,9 +25,9 @@ function fecha(iso: string) {
   }
 }
 
-function GoogleG() {
+function GoogleG({ className = "w-7 h-7" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 48 48" className="w-7 h-7 shrink-0" aria-hidden="true">
+    <svg viewBox="0 0 48 48" className={`${className} shrink-0`} aria-hidden="true">
       <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z" />
       <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z" />
       <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
@@ -49,8 +49,9 @@ export default async function Reviews() {
             <span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Reseñas</span>
             <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Lo que dicen nuestros clientes</h2>
             <p className="font-body-md text-body-md text-on-surface-variant">
-              Solo pueden dejar reseña aquí los clientes reales: al terminar cada trabajo les enviamos un enlace
-              personal que se usa una sola vez. Por eso cada reseña aparece como <strong>cliente verificado</strong>.
+              Aquí ves dos tipos de reseñas, y las dos son de clientes reales: las de <strong>cliente verificado</strong>,
+              que llegan con un enlace personal que les enviamos al terminar cada trabajo, y las <strong>reseñas de Google</strong>,
+              que puedes comprobar en nuestra ficha de Google Maps.
             </p>
           </div>
           {resenas.length > 0 && (
@@ -59,7 +60,7 @@ export default async function Reviews() {
               <div>
                 <Estrellas n={Math.round(promedio)} />
                 <span className="font-label-md text-label-md text-on-surface-variant">
-                  {resenas.length} {resenas.length === 1 ? "reseña verificada" : "reseñas verificadas"}
+                  {resenas.length} {resenas.length === 1 ? "reseña" : "reseñas"}
                 </span>
               </div>
             </div>
@@ -116,12 +117,23 @@ export default async function Reviews() {
               <li key={r.id} className="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
                 <div className="flex items-center justify-between gap-space-xs">
                   <Estrellas n={r.estrellas} />
-                  <span className="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-full bg-[#e3f7ec] dark:bg-[#0f3321] text-[#0f7a3d] dark:text-[#7be0a5] font-label-md text-label-md font-semibold">
-                    <BadgeCheck className="w-4 h-4" aria-hidden="true" />
-                    Cliente verificado
-                  </span>
+                  {r.origen === "google" ? (
+                    <span className="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-full bg-surface-container text-on-surface font-label-md text-label-md font-semibold">
+                      <GoogleG className="w-4 h-4" />
+                      Reseña de Google
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-full bg-[#e3f7ec] dark:bg-[#0f3321] text-[#0f7a3d] dark:text-[#7be0a5] font-label-md text-label-md font-semibold">
+                      <BadgeCheck className="w-4 h-4" aria-hidden="true" />
+                      Cliente verificado
+                    </span>
+                  )}
                 </div>
-                <p className="font-body-md text-body-md text-on-surface whitespace-pre-line">“{r.comentario}”</p>
+                {r.comentario ? (
+                  <p className="font-body-md text-body-md text-on-surface whitespace-pre-line">“{r.comentario}”</p>
+                ) : (
+                  <p className="font-body-sm text-body-sm text-on-surface-variant italic">Calificó con {r.estrellas} {r.estrellas === 1 ? "estrella" : "estrellas"} sin comentario.</p>
+                )}
                 {r.respuesta && (
                   <div className="rounded-lg bg-surface-container p-space-sm space-y-1">
                     <div className="flex items-center gap-1 font-label-md text-label-md font-semibold text-primary">
@@ -141,9 +153,19 @@ export default async function Reviews() {
                       {r.ciudad && <span className="font-normal text-on-surface-variant"> · {r.ciudad}</span>}
                     </div>
                     <div className="font-label-md text-label-md text-on-surface-variant">
-                      {r.servicio} · {fecha(r.created_at)}
+                      {r.origen === "google" ? "Google Maps" : r.servicio} · {fecha(r.fecha_resena ? `${r.fecha_resena}T12:00:00` : r.created_at)}
                     </div>
                   </div>
+                  {r.origen === "google" && GOOGLE_MAPS_URL && (
+                    <a
+                      href={GOOGLE_MAPS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto shrink-0 font-label-md text-label-md font-semibold text-primary hover:underline"
+                    >
+                      Ver en Google
+                    </a>
+                  )}
                 </div>
               </li>
             ))}

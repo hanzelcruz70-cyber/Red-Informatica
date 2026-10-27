@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { BadgeCheck, Check, Copy, EyeOff, Eye, Link2, Loader2, MessageSquareText, Send, Star, Trash2 } from "lucide-react";
+import { BadgeCheck, Check, Copy, ExternalLink, EyeOff, Eye, Link2, Loader2, MessageSquareText, Plus, Send, Star, Trash2 } from "lucide-react";
 import { api, btnIcono, btnPrimario, btnSecundario, formatoFecha, inputCls, textareaCls } from "./util";
 import { SERVICIOS_RESENA } from "@/lib/resenas-servicios";
+import { GOOGLE_MAPS_URL } from "@/lib/site";
 
 type Resena = {
   id: string;
@@ -16,6 +17,8 @@ type Resena = {
   respuesta: string;
   aprobada: boolean;
   verificada: boolean;
+  origen?: "enlace" | "google";
+  fecha_resena?: string | null;
 };
 
 type Invitacion = {
@@ -51,14 +54,25 @@ export default function ResenasTab() {
   const [respuestas, setRespuestas] = useState<Record<string, string>>({});
   const [confirmarBorrar, setConfirmarBorrar] = useState<string | null>(null);
 
+  // reseña de Google (copiada a mano)
+  const hoy = () => new Date().toLocaleDateString("en-CA");
+  const [gNombre, setGNombre] = useState("");
+  const [gEstrellas, setGEstrellas] = useState(5);
+  const [gFecha, setGFecha] = useState(hoy);
+  const [gComentario, setGComentario] = useState("");
+  const [gGuardando, setGGuardando] = useState(false);
+  const [gListo, setGListo] = useState(false);
+  const [faltaSql, setFaltaSql] = useState(false);
+
   const cargar = useCallback(async () => {
     setError("");
     try {
       const [r, i] = await Promise.all([
-        api<{ resenas: Resena[] }>("/api/panel/resenas"),
+        api<{ resenas: Resena[]; faltaSql?: boolean }>("/api/panel/resenas"),
         api<{ invitaciones: Invitacion[] }>("/api/panel/invitaciones"),
       ]);
       setResenas(r.resenas);
+      setFaltaSql(Boolean(r.faltaSql));
       setInvitaciones(i.invitaciones);
       setRespuestas(Object.fromEntries(r.resenas.map((x) => [x.id, x.respuesta ?? ""])));
     } catch (e) {
@@ -89,6 +103,30 @@ export default function ResenasTab() {
       setError((e as Error).message);
     } finally {
       setCreando(false);
+    }
+  }
+
+  async function agregarGoogle(e: React.FormEvent) {
+    e.preventDefault();
+    setGGuardando(true);
+    setError("");
+    try {
+      const d = await api<{ resena: Resena }>("/api/panel/resenas", {
+        method: "POST",
+        body: JSON.stringify({ nombre: gNombre, estrellas: gEstrellas, fecha: gFecha, comentario: gComentario }),
+      });
+      setResenas((l) => [d.resena, ...l]);
+      setRespuestas((m) => ({ ...m, [d.resena.id]: "" }));
+      setGNombre("");
+      setGEstrellas(5);
+      setGFecha(hoy());
+      setGComentario("");
+      setGListo(true);
+      setTimeout(() => setGListo(false), 3000);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setGGuardando(false);
     }
   }
 
@@ -244,12 +282,93 @@ export default function ResenasTab() {
         )}
       </section>
 
-      {/* 2. Reseñas recibidas */}
+      {/* 2. Agregar reseña de Google */}
+      <section className="rounded-2xl bg-surface-container-lowest border border-outline-variant/50 p-space-lg space-y-space-md">
+        <div className="flex flex-wrap items-start justify-between gap-space-sm">
+          <div className="max-w-2xl">
+            <h2 className="text-headline-sm font-headline-sm text-on-surface">Agregar una reseña de Google</h2>
+            <p className="text-body-sm text-on-surface-variant">
+              Cuando un cliente te reseñe en Google Maps, cópiala aquí tal como la escribió. Saldrá en tu página con la
+              etiqueta “Reseña de Google” y un enlace para que cualquiera la compruebe en tu ficha.
+            </p>
+          </div>
+          {GOOGLE_MAPS_URL && (
+            <a className={btnSecundario} href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
+              <ExternalLink size={16} /> Abrir mi ficha de Google
+            </a>
+          )}
+        </div>
+
+        {faltaSql && (
+          <p className="p-space-sm rounded-xl bg-[#fff6db] dark:bg-[#3a2e05] text-[#7a5600] dark:text-[#f5d67a] text-body-sm">
+            Antes de usar esto, ejecuta una vez el archivo <strong>resenas-google.sql</strong> en Supabase (SQL Editor → Run).
+          </p>
+        )}
+
+        <form onSubmit={agregarGoogle} className="space-y-space-sm">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-space-sm">
+            <input
+              className={inputCls}
+              placeholder="Nombre como aparece en Google"
+              value={gNombre}
+              onChange={(e) => setGNombre(e.target.value)}
+              required
+              minLength={2}
+              maxLength={60}
+            />
+            <div className="flex items-center gap-0.5 px-space-xs" role="radiogroup" aria-label="Estrellas">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <button
+                  key={i}
+                  type="button"
+                  role="radio"
+                  aria-checked={gEstrellas === i}
+                  aria-label={`${i} ${i === 1 ? "estrella" : "estrellas"}`}
+                  onClick={() => setGEstrellas(i)}
+                  className="p-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <Star size={24} className={i <= gEstrellas ? "fill-[#f5b301] text-[#f5b301]" : "text-outline-variant"} />
+                </button>
+              ))}
+            </div>
+            <input
+              type="date"
+              className={inputCls}
+              value={gFecha}
+              max={hoy()}
+              onChange={(e) => setGFecha(e.target.value)}
+              aria-label="Fecha de la reseña en Google"
+              required
+            />
+          </div>
+          <textarea
+            className={textareaCls}
+            rows={3}
+            maxLength={1500}
+            placeholder="Comentario (cópialo igualito; si solo dejó estrellas, déjalo vacío)"
+            value={gComentario}
+            onChange={(e) => setGComentario(e.target.value)}
+          />
+          <div className="flex items-center gap-space-sm">
+            <button type="submit" className={btnPrimario} disabled={gGuardando}>
+              {gGuardando ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
+              Agregar reseña de Google
+            </button>
+            {gListo && (
+              <span className="inline-flex items-center gap-1 text-body-sm text-[#0f7a3d] dark:text-[#7be0a5]">
+                <Check size={16} /> Publicada en tu página
+              </span>
+            )}
+          </div>
+        </form>
+      </section>
+
+      {/* 3. Reseñas recibidas */}
       <section className="space-y-space-md">
         <div>
           <h2 className="text-headline-sm font-headline-sm text-on-surface">Reseñas recibidas</h2>
           <p className="text-body-sm text-on-surface-variant">
-            Las reseñas verificadas se publican solas. Puedes responderlas u ocultarlas si tienen contenido ofensivo.
+            Las verificadas y las de Google se publican solas. Puedes responderlas, ocultarlas o eliminarlas.
           </p>
         </div>
 
@@ -270,11 +389,16 @@ export default function ResenasTab() {
                       {r.ciudad && <span className="font-normal text-on-surface-variant"> · {r.ciudad}</span>}
                     </p>
                     <p className="text-label-md font-label-md text-on-surface-variant">
-                      {r.servicio} · {formatoFecha(r.created_at)}
+                      {r.origen === "google" ? "Google Maps" : r.servicio} ·{" "}
+                      {formatoFecha(r.fecha_resena ? `${r.fecha_resena}T12:00:00` : r.created_at)}
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
-                    {r.verificada ? (
+                    {r.origen === "google" ? (
+                      <span className="inline-flex items-center gap-1 text-label-md font-label-md px-space-xs py-0.5 rounded-md bg-[#e8f0fe] dark:bg-[#132a52] text-[#1a56c4] dark:text-[#9cc0ff]">
+                        G · Reseña de Google
+                      </span>
+                    ) : r.verificada ? (
                       <span className="inline-flex items-center gap-1 text-label-md font-label-md px-space-xs py-0.5 rounded-md bg-[#e3f7ec] dark:bg-[#0f3321] text-[#0f7a3d] dark:text-[#7be0a5]">
                         <BadgeCheck size={14} /> Verificada
                       </span>
@@ -295,7 +419,7 @@ export default function ResenasTab() {
                 </div>
                 <p className="text-body-sm text-on-surface whitespace-pre-line">{r.comentario}</p>
 
-                {r.verificada && (
+                {(r.verificada || r.origen === "google") && (
                   <div className="space-y-space-2xs">
                     <label className="flex items-center gap-1 text-label-md font-label-md text-on-surface-variant" htmlFor={`resp-${r.id}`}>
                       <MessageSquareText size={14} /> Tu respuesta pública
@@ -313,12 +437,12 @@ export default function ResenasTab() {
                 )}
 
                 <div className="flex flex-wrap items-center gap-space-xs pt-space-2xs">
-                  {r.verificada && (respuestas[r.id] ?? "") !== (r.respuesta ?? "") && (
+                  {(r.verificada || r.origen === "google") && (respuestas[r.id] ?? "") !== (r.respuesta ?? "") && (
                     <button className={btnPrimario} disabled={ocupado === r.id} onClick={() => actualizar(r, { respuesta: respuestas[r.id] ?? "" })}>
                       <Check size={16} /> Guardar respuesta
                     </button>
                   )}
-                  {r.verificada &&
+                  {(r.verificada || r.origen === "google") &&
                     (r.aprobada ? (
                       <button className={btnSecundario} disabled={ocupado === r.id} onClick={() => actualizar(r, { aprobada: false })}>
                         <EyeOff size={16} /> Ocultar
