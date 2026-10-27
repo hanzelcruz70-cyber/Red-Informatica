@@ -87,7 +87,7 @@ const CATEGORIAS: Categoria[] = [
       { nombre: "Windows 11", detalle: "Instalación limpia y configuración", logo: "windows-11" },
       { nombre: "Windows 10", detalle: "Ideal para equipos con pocos recursos", logo: "windows-10" },
       { nombre: "Linux Ubuntu", detalle: "Sistema libre y liviano", logo: "ubuntu" },
-      { nombre: "Controladores (drivers)", detalle: "Video, audio, Wi-Fi e impresoras" },
+      { nombre: "Controladores (drivers)", detalle: "Video, audio, Wi-Fi e impresoras", logo: "drivers" },
     ],
   },
   {
