@@ -5,7 +5,7 @@ export default function Hero() {
       <div className="absolute left-1/3 top-1/2 h-80 w-80 rounded-full bg-secondary-container/15 blur-3xl pointer-events-none" aria-hidden="true"></div>
 
       <div className="relative max-w-[90rem] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop 2xl:px-gutter-2xl">
-        <div className="max-w-6xl mx-auto space-y-space-xl">
+        <div className="space-y-space-xl">
           <div className="inline-flex items-center gap-space-xs px-space-sm py-space-2xs rounded-full bg-surface-container-lowest shadow-sm">
             <span className="w-2.5 h-2.5 rounded-full bg-secondary-container animate-pulse" aria-hidden="true"></span>
             <span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Tecnología de Alto Rendimiento</span>
@@ -14,10 +14,10 @@ export default function Hero() {
           </div>
 
           <div className="space-y-space-md">
-            <h1 className="font-display text-display-mobile md:text-display lg:text-[72px] lg:leading-[82px] xl:text-[80px] xl:leading-[90px] tracking-tight text-on-surface">
+            <h1 className="font-display text-display-mobile md:text-display lg:text-[72px] lg:leading-[82px] xl:text-[80px] xl:leading-[90px] tracking-tight text-on-surface max-w-5xl">
               Soluciones Tecnológicas Integrales a tu Alcance
             </h1>
-            <p className="font-body-lg text-body-lg lg:text-[24px] lg:leading-[38px] text-on-surface-variant max-w-5xl leading-relaxed">
+            <p className="font-body-lg text-body-lg lg:text-[24px] lg:leading-[38px] text-on-surface-variant max-w-4xl leading-relaxed">
               Especialistas en soporte técnico informático, reparación avanzada de hardware, optimización de velocidad de sistemas, despliegue de software empresarial y diseño web profesional orientado a resultados.
             </p>
           </div>
@@ -39,7 +39,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md max-w-6xl">
             <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center gap-space-sm">
               <svg className="w-9 h-9 text-primary shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 7.033 4.182 12.728 8.995 14.07a1 1 0 00.01 0C16.818 21.728 21 16.033 21 9c0-.414-.02-.824-.06-1.229a11.94 11.94 0 01-2.382-.787z" /></svg>
               <div>
