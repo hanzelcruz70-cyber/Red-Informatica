@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --c-tertiary: 54 65 84;
+    --c-tertiary-fixed: 216 227 251;
+    --c-primary-fixed: 222 225 255;
+    --c-inverse-primary: 185 195 255;
+    --c-error: 186 26 26;
+    --c-on-primary-container: 196 204 255;
+    --c-surface-container-lowest: 255 255 255;
+    --c-background: 248 249 255;
+    --c-outline: 116 118 135;
+    --c-on-secondary-fixed: 0 31 38;
+    --c-on-secondary: 255 255 255;
+    --c-surface-container-low: 239 244 255;
+    --c-on-tertiary: 255 255 255;
+    --c-inverse-surface: 33 49 69;
+    --c-primary: 0 46 180;
+    --c-on-background: 11 28 48;
+    --c-surface: 248 249 255;
+    --c-on-error-container: 147 0 10;
+    --c-surface-bright: 248 249 255;
+    --c-on-tertiary-fixed-variant: 60 71 90;
+    --c-surface-container-highest: 211 228 254;
+    --c-on-primary-fixed-variant: 0 50 195;
+    --c-on-primary: 255 255 255;
+    --c-on-error: 255 255 255;
+    --c-secondary-fixed: 172 237 255;
+    --c-on-tertiary-container: 195 206 230;
+    --c-surface-container-high: 220 233 255;
+    --c-primary-container: 18 66 230;
+    --c-tertiary-fixed-dim: 188 199 222;
+    --c-surface-tint: 32 74 236;
+    --c-on-tertiary-fixed: 17 28 45;
+    --c-on-surface: 11 28 48;
+    --c-inverse-on-surface: 234 241 255;
+    --c-outline-variant: 196 197 216;
+    --c-primary-fixed-dim: 185 195 255;
+    --c-tertiary-container: 77 88 108;
+    --c-on-primary-fixed: 0 17 88;
+    --c-on-secondary-fixed-variant: 0 78 92;
+    --c-surface-dim: 203 219 245;
+    --c-secondary-container: 87 223 254;
+    --c-secondary: 0 104 122;
+    --c-surface-variant: 211 228 254;
+    --c-on-secondary-container: 0 97 114;
+    --c-secondary-fixed-dim: 76 215 246;
+    --c-on-surface-variant: 68 70 86;
+    --c-surface-container: 229 238 255;
+    color-scheme: light;
+  }
+  .dark {
+    --c-tertiary-fixed: 37 47 66;
+    --c-tertiary: 188 199 222;
+    --c-primary-fixed: 31 44 110;
+    --c-inverse-primary: 32 74 236;
+    --c-error: 255 180 171;
+    --c-on-primary-container: 0 33 127;
+    --c-surface-container-lowest: 15 23 40;
+    --c-background: 11 18 32;
+    --c-outline: 139 147 167;
+    --c-on-secondary-fixed: 172 237 255;
+    --c-on-secondary: 0 54 63;
+    --c-surface-container-low: 19 29 49;
+    --c-on-tertiary: 38 49 67;
+    --c-inverse-surface: 4 7 13;
+    --c-primary: 195 204 255;
+    --c-on-background: 227 233 246;
+    --c-surface: 11 18 32;
+    --c-on-error-container: 255 218 214;
+    --c-surface-bright: 39 50 70;
+    --c-on-tertiary-fixed-variant: 195 206 230;
+    --c-surface-container-highest: 42 57 82;
+    --c-on-primary-fixed-variant: 222 225 255;
+    --c-on-primary: 0 33 127;
+    --c-on-error: 105 0 5;
+    --c-secondary-fixed: 15 58 68;
+    --c-on-tertiary-container: 219 227 245;
+    --c-surface-container-high: 33 46 69;
+    --c-primary-container: 169 182 255;
+    --c-tertiary-fixed-dim: 60 71 90;
+    --c-surface-tint: 185 195 255;
+    --c-on-tertiary-fixed: 219 227 245;
+    --c-on-surface: 227 233 246;
+    --c-inverse-on-surface: 33 49 69;
+    --c-outline-variant: 54 66 90;
+    --c-primary-fixed-dim: 44 60 133;
+    --c-tertiary-container: 60 71 90;
+    --c-on-primary-fixed: 222 225 255;
+    --c-on-secondary-fixed-variant: 172 237 255;
+    --c-surface-dim: 11 18 32;
+    --c-secondary-container: 0 88 106;
+    --c-secondary: 76 215 246;
+    --c-surface-variant: 42 57 82;
+    --c-on-secondary-container: 172 237 255;
+    --c-secondary-fixed-dim: 26 76 88;
+    --c-on-surface-variant: 184 192 210;
+    --c-surface-container: 24 35 58;
+    color-scheme: dark;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    overscroll-behavior: none;
+  }
+  main > section:first-child {
+    margin-top: 0 !important;
+  }
+  main > section:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

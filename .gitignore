@@ -1,0 +1,20 @@
+node_modules
+.next
+out
+build
+.vercel
+.env
+.env*.local
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+
+
+# Archivos ajenos al proyecto
+_archive/
+red-informatica/
+vercel-login.*
+' -Wait'
+" -Wait"
+.vercel
+.env*
