@@ -126,3 +126,15 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Pantallas grandes (Full HD, 2K, 4K): escala toda la página de forma proporcional
+   para que no se vea como una franja pequeña en el centro. */
+@media (min-width: 1800px) {
+  html { zoom: 1.12; }
+}
+@media (min-width: 2300px) {
+  html { zoom: 1.35; }
+}
+@media (min-width: 3200px) {
+  html { zoom: 1.8; }
+}
