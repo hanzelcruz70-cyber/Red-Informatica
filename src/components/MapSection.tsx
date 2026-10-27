@@ -15,8 +15,8 @@ export default function MapSection() {
                 Trae tu computadora a nuestro taller o, si estás lejos, te atendemos a distancia.
               </p>
             </div>
-            <div className="flex items-start gap-space-sm p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
-              <MapPin className="w-6 h-6 text-primary shrink-0 mt-0.5" aria-hidden="true" />
+            <div className="flex items-center gap-space-sm p-space-md rounded-xl bg-surface-container-lowest shadow-sm">
+              <div className="w-10 h-10 rounded-lg bg-[#EA4335] text-white shadow-sm flex items-center justify-center shrink-0"><MapPin className="w-5 h-5" aria-hidden="true" /></div>
               <div>
                 <p className="font-body-md text-body-md font-semibold text-on-surface">RED INFORMÁTICA</p>
                 <p className="font-body-sm text-body-sm text-on-surface-variant">Sébaco, Matagalpa, Nicaragua</p>

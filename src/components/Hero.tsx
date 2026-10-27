@@ -41,21 +41,21 @@ export default function Hero() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md max-w-6xl">
             <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center gap-space-sm">
-              <svg className="w-9 h-9 text-primary shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 7.033 4.182 12.728 8.995 14.07a1 1 0 00.01 0C16.818 21.728 21 16.033 21 9c0-.414-.02-.824-.06-1.229a11.94 11.94 0 01-2.382-.787z" /></svg>
+              <svg className="w-9 h-9 text-[#16A34A] shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 7.033 4.182 12.728 8.995 14.07a1 1 0 00.01 0C16.818 21.728 21 16.033 21 9c0-.414-.02-.824-.06-1.229a11.94 11.94 0 01-2.382-.787z" /></svg>
               <div>
                 <div className="font-label-lg text-label-lg font-bold text-on-surface">Soporte Garantizado</div>
                 <div className="font-label-sm text-label-sm text-on-surface-variant">Piezas y servicios 100% testeados</div>
               </div>
             </div>
             <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center gap-space-sm">
-              <svg className="w-9 h-9 text-secondary shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              <svg className="w-9 h-9 text-[#F59E0B] shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
               <div>
                 <div className="font-label-lg text-label-lg font-bold text-on-surface">Atención Rápida</div>
                 <div className="font-label-sm text-label-sm text-on-surface-variant">Diagnóstico express en 24-48h</div>
               </div>
             </div>
             <div className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex items-center gap-space-sm">
-              <svg className="w-9 h-9 text-primary shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+              <svg className="w-9 h-9 text-[#8B5CF6] shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
               <div>
                 <div className="font-label-lg text-label-lg font-bold text-on-surface">+5 Años</div>
                 <div className="font-label-sm text-label-sm text-on-surface-variant">Experiencia técnica comprobada</div>

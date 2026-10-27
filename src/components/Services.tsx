@@ -10,7 +10,7 @@ const SERVICES = [
       "Reparación de fallos de encendido, cortocircuitos y sobretensiones",
     ],
     cta: "Consultar reparación de equipo",
-    iconBg: "bg-primary-fixed text-primary",
+    iconBg: "bg-gradient-to-br from-[#3B82F6] to-[#1D4ED8] text-white shadow-sm",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" />
     ),
@@ -26,7 +26,7 @@ const SERVICES = [
       "Ampliación de memoria RAM para multitarea fluida y trabajo corporativo",
     ],
     cta: "Optimizar velocidad de sistema",
-    iconBg: "bg-secondary-fixed text-secondary",
+    iconBg: "bg-gradient-to-br from-[#22C55E] to-[#15803D] text-white shadow-sm",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.986 14.986 0 006.16-12.12A14.987 14.987 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06m4.01 0a5.994 5.994 0 00-.282-.507m-3.202 2.313a6 6 0 003.013-.933" />
     ),
@@ -42,7 +42,7 @@ const SERVICES = [
       "Sincronización segura de cuentas en la nube y configuración de copias de seguridad",
     ],
     cta: "Solicitar configuración de software",
-    iconBg: "bg-tertiary-fixed text-tertiary",
+    iconBg: "bg-gradient-to-br from-[#FB923C] to-[#EA580C] text-white shadow-sm",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
     ),
@@ -58,7 +58,7 @@ const SERVICES = [
       "Integración de canales directos: botones de WhatsApp, formularios y catálogos de servicios",
     ],
     cta: "Cotizar proyecto web profesional",
-    iconBg: "bg-primary-fixed text-primary",
+    iconBg: "bg-gradient-to-br from-[#A78BFA] to-[#7C3AED] text-white shadow-sm",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" />
     ),

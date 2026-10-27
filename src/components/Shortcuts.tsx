@@ -7,28 +7,28 @@ const ATAJOS = [
     titulo: "Servicios",
     texto: "Reparación, optimización, instalación de software y páginas web.",
     icono: Wrench,
-    color: "bg-primary-fixed text-primary",
+    color: "bg-gradient-to-br from-[#3B82F6] to-[#1D4ED8] text-white shadow-sm",
   },
   {
     href: "/programas",
     titulo: "Programas",
     texto: "Office, Adobe, AutoCAD, Revit y muchos más. Reserva tu instalación.",
     icono: CalendarCheck,
-    color: "bg-secondary-fixed text-secondary",
+    color: "bg-gradient-to-br from-[#22C55E] to-[#15803D] text-white shadow-sm",
   },
   {
     href: "/casos",
     titulo: "Casos reales",
     texto: "Mira en video cómo quedaron las compus de nuestros clientes.",
     icono: PlayCircle,
-    color: "bg-tertiary-fixed text-tertiary",
+    color: "bg-gradient-to-br from-[#F472B6] to-[#DB2777] text-white shadow-sm",
   },
   {
     href: "/resenas",
     titulo: "Reseñas",
     texto: "Lo que dicen nuestros clientes y deja tu propia opinión.",
     icono: Star,
-    color: "bg-primary-fixed text-primary",
+    color: "bg-gradient-to-br from-[#FBBF24] to-[#D97706] text-white shadow-sm",
   },
 ];
 
