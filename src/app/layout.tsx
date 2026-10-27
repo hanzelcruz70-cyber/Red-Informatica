@@ -20,11 +20,11 @@ const siteUrl = SITE_URL;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "RED INFORMÁTICA | Soporte Técnico, Reparación y Diseño Web",
-    template: "%s | RED INFORMÁTICA",
+    default: "Red Informática Sébaco | Soporte Técnico y Reparación de Computadoras",
+    template: "%s | Red Informática Sébaco",
   },
   description:
-    "Soporte técnico informático, reparación de hardware, optimización de sistemas, instalación de software y diseño web profesional. Diagnóstico express y garantía por escrito.",
+    "Red Informática en Sébaco, Matagalpa: soporte técnico, reparación y optimización de computadoras y laptops, instalación de programas (Office, Adobe, AutoCAD) y diseño web. Atención en taller y a distancia.",
   keywords: [
     "soporte técnico",
     "reparación de computadoras",
@@ -35,13 +35,17 @@ export const metadata: Metadata = {
     "Sébaco",
     "Matagalpa",
     "instalación de programas",
+    "Red Informática",
+    "Red Informática Sébaco",
+    "técnico de computadoras Sébaco",
+    "reparación de laptops Matagalpa",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "es_NI",
-    siteName: "RED INFORMÁTICA",
-    title: "RED INFORMÁTICA | Soluciones Tecnológicas Integrales",
+    siteName: "Red Informática",
+    title: "Red Informática Sébaco | Soporte Técnico y Reparación de Computadoras",
     description:
       "Soporte técnico, reparación avanzada de hardware, optimización de sistemas y desarrollo web profesional.",
     url: siteUrl,
@@ -55,7 +59,10 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "RED INFORMÁTICA",
+  name: "Red Informática",
+  alternateName: ["RED INFORMÁTICA", "Red Informática Sébaco"],
+  image: `${siteUrl}/logo.png`,
+  logo: `${siteUrl}/logo.png`,
   description:
     "Soporte técnico informático, reparación de computadoras y laptops, optimización de sistemas, instalación de software y diseño web profesional.",
   email: "redinformaticatotal@gmail.com",
@@ -63,6 +70,8 @@ const jsonLd = {
   url: siteUrl,
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Barrio Tomás Borge, de la escuelita Tomás Borge una cuadra al sur",
+    postalCode: "62200",
     addressLocality: "Sébaco",
     addressRegion: "Matagalpa",
     addressCountry: "NI",
@@ -82,6 +91,15 @@ const jsonLd = {
     "Instalación de software",
     "Diseño y desarrollo web",
   ],
+};
+
+const webSiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Red Informática",
+  alternateName: ["RED INFORMÁTICA", "Red Informática Sébaco"],
+  url: siteUrl,
+  inLanguage: "es",
 };
 
 const TEMA_SCRIPT = `try{var t=localStorage.getItem("tema");if(t==="oscuro"||(!t&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}`;
@@ -106,6 +124,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteLd) }}
         />
         {children}
       </body>

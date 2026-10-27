@@ -197,7 +197,7 @@ export default function Programs() {
                   href={waLink(`Hola, quiero reservar la instalación de ${nombre}.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center justify-center gap-space-xs h-10 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-body-sm text-body-sm font-semibold transition-colors"
+                  className="mt-auto inline-flex items-center justify-center gap-space-xs h-10 rounded-lg bg-primary-container hover:bg-[#16A34A] text-on-primary shadow-sm hover:shadow-md font-body-sm text-body-sm font-semibold transition-colors"
                 >
                   <CalendarCheck className="w-4 h-4" aria-hidden="true" />
                   Reservar

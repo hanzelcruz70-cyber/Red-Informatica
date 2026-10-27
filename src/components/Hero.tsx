@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section id="inicio" className="relative w-full overflow-hidden bg-gradient-to-b from-surface-container-high/40 via-surface to-background pb-space-3xl pt-space-xl">
+    <section id="inicio" className="relative w-full overflow-hidden bg-gradient-to-b from-surface-container-high/40 via-surface to-background pb-space-3xl pt-space-2xl md:pt-space-3xl lg:pt-space-4xl">
       <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary-container/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
       <div className="absolute left-1/3 top-1/2 h-80 w-80 rounded-full bg-secondary-container/15 blur-3xl pointer-events-none" aria-hidden="true"></div>
 
@@ -18,7 +18,7 @@ export default function Hero() {
               Soluciones Tecnológicas Integrales a tu Alcance
             </h1>
             <p className="font-body-lg text-body-lg lg:text-[24px] lg:leading-[38px] text-on-surface-variant max-w-4xl leading-relaxed">
-              Especialistas en soporte técnico informático, reparación avanzada de hardware, optimización de velocidad de sistemas, despliegue de software empresarial y diseño web profesional orientado a resultados.
+              En <strong className="font-semibold text-on-surface">Red Informática</strong> (Sébaco, Matagalpa) somos especialistas en soporte técnico informático, reparación avanzada de hardware, optimización de velocidad de sistemas, despliegue de software empresarial y diseño web profesional orientado a resultados.
             </p>
           </div>
 
