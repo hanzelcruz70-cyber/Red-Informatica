@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import {
   CalendarCheck,
   Clapperboard,
@@ -19,7 +20,7 @@ type Categoria = {
   nombre: string;
   icono: LucideIcon;
   color: string;
-  programas: { nombre: string; detalle: string }[];
+  programas: { nombre: string; detalle: string; logo?: string }[];
 };
 
 const CATEGORIAS: Categoria[] = [
@@ -29,13 +30,13 @@ const CATEGORIAS: Categoria[] = [
     icono: FileText,
     color: "bg-primary-fixed text-primary",
     programas: [
-      { nombre: "Microsoft 365", detalle: "Office siempre actualizado" },
-      { nombre: "Office 2024", detalle: "LTSC / Professional Plus / Standard / Visio / Project" },
-      { nombre: "Office 2021", detalle: "LTSC / Professional Plus / Standard / Visio / Project" },
-      { nombre: "Office 2019", detalle: "Professional Plus / Standard / Visio / Project" },
-      { nombre: "Office 2016", detalle: "Professional Plus / Standard / Visio / Project" },
-      { nombre: "Office 2013", detalle: "Professional Plus / Standard / Visio / Project" },
-      { nombre: "Office 2010", detalle: "Professional Plus / Standard" },
+      { nombre: "Microsoft 365", detalle: "Office siempre actualizado", logo: "microsoft-365" },
+      { nombre: "Office 2024", detalle: "LTSC / Professional Plus / Standard / Visio / Project", logo: "office" },
+      { nombre: "Office 2021", detalle: "LTSC / Professional Plus / Standard / Visio / Project", logo: "office" },
+      { nombre: "Office 2019", detalle: "Professional Plus / Standard / Visio / Project", logo: "office" },
+      { nombre: "Office 2016", detalle: "Professional Plus / Standard / Visio / Project", logo: "office" },
+      { nombre: "Office 2013", detalle: "Professional Plus / Standard / Visio / Project", logo: "office" },
+      { nombre: "Office 2010", detalle: "Professional Plus / Standard", logo: "office" },
     ],
   },
   {
@@ -44,11 +45,11 @@ const CATEGORIAS: Categoria[] = [
     icono: Palette,
     color: "bg-secondary-fixed text-secondary",
     programas: [
-      { nombre: "Adobe Photoshop", detalle: "Edición de fotos" },
-      { nombre: "Adobe Illustrator", detalle: "Logos y vectores" },
-      { nombre: "Adobe InDesign", detalle: "Revistas y catálogos" },
-      { nombre: "Adobe Lightroom", detalle: "Revelado fotográfico" },
-      { nombre: "CorelDRAW", detalle: "Diseño vectorial y rotulación" },
+      { nombre: "Adobe Photoshop", detalle: "Edición de fotos", logo: "photoshop" },
+      { nombre: "Adobe Illustrator", detalle: "Logos y vectores", logo: "illustrator" },
+      { nombre: "Adobe InDesign", detalle: "Revistas y catálogos", logo: "indesign" },
+      { nombre: "Adobe Lightroom", detalle: "Revelado fotográfico", logo: "lightroom" },
+      { nombre: "CorelDRAW", detalle: "Diseño vectorial y rotulación", logo: "coreldraw" },
     ],
   },
   {
@@ -57,10 +58,10 @@ const CATEGORIAS: Categoria[] = [
     icono: Clapperboard,
     color: "bg-tertiary-fixed text-tertiary",
     programas: [
-      { nombre: "Adobe Premiere Pro", detalle: "Edición de video" },
-      { nombre: "Adobe After Effects", detalle: "Animación y efectos" },
-      { nombre: "Adobe Audition", detalle: "Edición de audio" },
-      { nombre: "Filmora", detalle: "Edición de video fácil" },
+      { nombre: "Adobe Premiere Pro", detalle: "Edición de video", logo: "premiere" },
+      { nombre: "Adobe After Effects", detalle: "Animación y efectos", logo: "after-effects" },
+      { nombre: "Adobe Audition", detalle: "Edición de audio", logo: "audition" },
+      { nombre: "Filmora", detalle: "Edición de video fácil", logo: "filmora" },
     ],
   },
   {
@@ -69,12 +70,12 @@ const CATEGORIAS: Categoria[] = [
     icono: DraftingCompass,
     color: "bg-primary-fixed text-primary",
     programas: [
-      { nombre: "AutoCAD", detalle: "Dibujo técnico 2D y 3D" },
-      { nombre: "AutoCAD Civil 3D", detalle: "Topografía y carreteras" },
-      { nombre: "Revit", detalle: "Modelado BIM" },
-      { nombre: "SketchUp", detalle: "Modelado 3D rápido" },
-      { nombre: "Lumion", detalle: "Renders y recorridos" },
-      { nombre: "Slide (Rocscience)", detalle: "Estabilidad de taludes" },
+      { nombre: "AutoCAD", detalle: "Dibujo técnico 2D y 3D", logo: "autocad" },
+      { nombre: "AutoCAD Civil 3D", detalle: "Topografía y carreteras", logo: "autocad" },
+      { nombre: "Revit", detalle: "Modelado BIM", logo: "revit" },
+      { nombre: "SketchUp", detalle: "Modelado 3D rápido", logo: "sketchup" },
+      { nombre: "Lumion", detalle: "Renders y recorridos", logo: "lumion" },
+      { nombre: "Slide (Rocscience)", detalle: "Estabilidad de taludes", logo: "slide" },
     ],
   },
   {
@@ -83,9 +84,9 @@ const CATEGORIAS: Categoria[] = [
     icono: MonitorCog,
     color: "bg-tertiary-fixed text-tertiary",
     programas: [
-      { nombre: "Windows 11", detalle: "Instalación limpia y configuración" },
-      { nombre: "Windows 10", detalle: "Ideal para equipos con pocos recursos" },
-      { nombre: "Linux Ubuntu", detalle: "Sistema libre y liviano" },
+      { nombre: "Windows 11", detalle: "Instalación limpia y configuración", logo: "windows-11" },
+      { nombre: "Windows 10", detalle: "Ideal para equipos con pocos recursos", logo: "windows-10" },
+      { nombre: "Linux Ubuntu", detalle: "Sistema libre y liviano", logo: "ubuntu" },
       { nombre: "Controladores (drivers)", detalle: "Video, audio, Wi-Fi e impresoras" },
     ],
   },
@@ -95,10 +96,10 @@ const CATEGORIAS: Categoria[] = [
     icono: ShieldCheck,
     color: "bg-primary-fixed text-primary",
     programas: [
-      { nombre: "Antivirus ESET", detalle: "Protección contra virus" },
-      { nombre: "Kaspersky", detalle: "Protección contra virus" },
-      { nombre: "WinRAR", detalle: "Comprimir y descomprimir" },
-      { nombre: "7-Zip", detalle: "Compresor gratuito" },
+      { nombre: "Antivirus ESET", detalle: "Protección contra virus", logo: "eset" },
+      { nombre: "Kaspersky", detalle: "Protección contra virus", logo: "kaspersky" },
+      { nombre: "WinRAR", detalle: "Comprimir y descomprimir", logo: "winrar" },
+      { nombre: "7-Zip", detalle: "Compresor gratuito", logo: "7zip" },
     ],
   },
 ];
@@ -166,7 +167,7 @@ export default function Programs() {
         </div>
 
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-space-md">
-          {visibles.map(({ nombre, detalle, categoria }) => {
+          {visibles.map(({ nombre, detalle, logo, categoria }) => {
             const Icono = categoria.icono;
             return (
               <li
@@ -174,9 +175,19 @@ export default function Programs() {
                 className="p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-sm"
               >
                 <div className="flex items-start gap-space-sm">
-                  <div className={`w-11 h-11 rounded-lg ${categoria.color} flex items-center justify-center shrink-0`}>
-                    <Icono className="w-6 h-6" aria-hidden="true" />
-                  </div>
+                  {logo ? (
+                    <Image
+                      src={`/logos/${logo}.png`}
+                      alt={`Logo de ${nombre}`}
+                      width={44}
+                      height={44}
+                      className="w-11 h-11 object-contain shrink-0"
+                    />
+                  ) : (
+                    <div className={`w-11 h-11 rounded-lg ${categoria.color} flex items-center justify-center shrink-0`}>
+                      <Icono className="w-6 h-6" aria-hidden="true" />
+                    </div>
+                  )}
                   <div className="min-w-0">
                     <h3 className="font-body-md text-body-md font-bold text-on-surface leading-snug">{nombre}</h3>
                     <p className="font-body-sm text-body-sm text-on-surface-variant">{detalle}</p>
