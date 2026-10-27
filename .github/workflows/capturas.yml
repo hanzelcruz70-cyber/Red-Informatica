@@ -1,0 +1,27 @@
+name: capturas-promo
+on:
+  push:
+    branches: [promo-capturas]
+permissions:
+  contents: write
+jobs:
+  capturar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm i playwright@1.48.2
+      - run: npx playwright install --with-deps chromium
+      - run: node capturar.mjs
+      - name: Subir capturas a la rama promo-capturas-out
+        run: |
+          cd out
+          git init -q -b promo-capturas-out
+          git config user.name "capturas-bot"
+          git config user.email "capturas-bot@users.noreply.github.com"
+          git add -A
+          git commit -qm "capturas"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" promo-capturas-out
