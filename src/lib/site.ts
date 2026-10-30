@@ -2,6 +2,26 @@
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://red-informatica.com").replace(/\/+$/, "");
 
 export const NOMBRE = "RED INFORMÁTICA";
+
+/**
+ * Metadatos de cada página con su propia vista previa para redes (og:url, título y descripción).
+ * Sin esto todas las páginas heredan la vista previa de la portada.
+ */
+export function metaPagina(ruta: string, title: string, description: string) {
+  return {
+    title,
+    description,
+    alternates: { canonical: ruta },
+    openGraph: {
+      type: "website" as const,
+      locale: "es_NI",
+      siteName: "Red Informática",
+      title: `${title} | Red Informática Sébaco`,
+      description,
+      url: `${SITE_URL}${ruta}`,
+    },
+  };
+}
 export const EMAIL = "redinformaticatotal@gmail.com";
 export const TELEFONO = "+505 8918-8813";
 export const WHATSAPP = "50589188813";

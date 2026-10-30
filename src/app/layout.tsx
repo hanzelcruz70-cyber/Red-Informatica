@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "Red Informática",
     title: "Red Informática Sébaco | Soporte Técnico y Reparación de Computadoras",
     description:
-      "Soporte técnico, reparación avanzada de hardware, optimización de sistemas y desarrollo web profesional.",
+      "Reparación de computadoras y laptops, optimización de PC, instalación de programas y diseño web en Sébaco, Matagalpa.",
     url: siteUrl,
   },
   robots: { index: true, follow: true },
@@ -76,7 +76,23 @@ const jsonLd = {
     addressRegion: "Matagalpa",
     addressCountry: "NI",
   },
-  areaServed: ["Sébaco", "Matagalpa", "Nicaragua"],
+  areaServed: [
+    { "@type": "City", name: "Sébaco" },
+    { "@type": "City", name: "Matagalpa" },
+    { "@type": "Country", name: "Nicaragua" },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Servicios de Red Informática",
+    itemListElement: [
+      "Reparación de computadoras y laptops",
+      "Cambio a disco SSD y ampliación de memoria RAM",
+      "Formateo, limpieza y optimización de PC",
+      "Instalación de Windows, Office, Adobe y AutoCAD",
+      "Soporte técnico a distancia",
+      "Diseño y desarrollo de páginas web",
+    ].map((name) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name } })),
+  },
   sameAs: [
     "https://www.facebook.com/profile.php?id=61594252049186",
     "https://www.tiktok.com/@red_informatica",

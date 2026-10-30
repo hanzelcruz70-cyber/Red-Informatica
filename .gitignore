@@ -1,20 +1,19 @@
+# Dependencias y builds
 node_modules
 .next
 out
 build
-.vercel
-.env
-.env*.local
 *.tsbuildinfo
 next-env.d.ts
-.DS_Store
 
-
-# Archivos ajenos al proyecto
-_archive/
-red-informatica/
-vercel-login.*
-' -Wait'
-" -Wait"
-.vercel
+# Secretos y Vercel
 .env*
+!.env.example
+.vercel
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Material generado fuera del proyecto
+Claude outputs/

@@ -47,7 +47,7 @@ export default async function Reviews() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-sm">
           <div className="max-w-2xl space-y-space-2xs">
             <span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Reseñas</span>
-            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Lo que dicen nuestros clientes</h2>
+            <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Lo que dicen nuestros clientes</h1>
             <p className="font-body-md text-body-md text-on-surface-variant">
               Aquí ves dos tipos de reseñas, y las dos son de clientes reales: las de <strong>cliente verificado</strong>,
               que llegan con un enlace personal que les enviamos al terminar cada trabajo, y las <strong>reseñas de Google</strong>,

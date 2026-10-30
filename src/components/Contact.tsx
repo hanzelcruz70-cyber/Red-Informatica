@@ -58,7 +58,7 @@ export default function Contact() {
           <div className="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-space-lg md:p-space-xl shadow-md space-y-space-lg">
             <div className="space-y-space-2xs">
               <span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Atención Sin Compromiso</span>
-              <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Solicitar Diagnóstico o Cotización</h2>
+              <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Solicitar Diagnóstico o Cotización</h1>
               <p className="font-body-md text-body-md text-on-surface-variant">
                 Completa los datos de tu consulta. Uno de nuestros técnicos te responderá en un plazo máximo de 2 a 4 horas hábiles.
               </p>

@@ -15,7 +15,7 @@ export default function Hero() {
 
           <div className="space-y-space-md">
             <h1 className="font-display text-display-mobile md:text-display lg:text-[72px] lg:leading-[82px] xl:text-[80px] xl:leading-[90px] tracking-tight text-on-surface max-w-5xl">
-              Soluciones Tecnológicas Integrales a tu Alcance
+              Soporte Técnico y Reparación de Computadoras en Sébaco
             </h1>
             <p className="font-body-lg text-body-lg lg:text-[24px] lg:leading-[38px] text-on-surface-variant max-w-4xl leading-relaxed">
               En <strong className="font-semibold text-on-surface">Red Informática</strong> (Sébaco, Matagalpa) somos especialistas en soporte técnico informático, reparación avanzada de hardware, optimización de velocidad de sistemas, despliegue de software empresarial y diseño web profesional orientado a resultados.

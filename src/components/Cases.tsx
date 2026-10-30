@@ -42,7 +42,7 @@ export default function Cases() {
       <div className="max-w-[90rem] mx-auto px-gutter-mobile md:px-gutter-tablet lg:px-gutter-desktop 2xl:px-gutter-2xl">
         <div className="max-w-2xl space-y-space-2xs mb-space-2xl">
           <span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Casos reales</span>
-          <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Trabajos reales, resultados medibles</h2>
+          <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Trabajos reales, resultados medibles</h1>
           <p className="font-body-md text-body-md text-on-surface-variant">
             Así quedaron algunas computadoras de nuestros clientes. Muchas compus son buenas: solo necesitan una
             buena optimización.

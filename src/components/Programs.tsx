@@ -136,7 +136,7 @@ export default function Programs() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-sm">
           <div className="space-y-space-2xs">
             <span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Instalación de programas</span>
-            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Programas que instalamos</h2>
+            <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Instalación de programas en Sébaco</h1>
             <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl">
               Elige el programa que necesitas y reserva tu instalación. Lo dejamos instalado, configurado y listo
               para trabajar, en nuestro taller o a distancia.

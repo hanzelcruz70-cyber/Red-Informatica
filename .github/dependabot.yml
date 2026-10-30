@@ -1,0 +1,16 @@
+# Avisos automáticos de actualizaciones de dependencias (auditoría 2026-10-07).
+# Dependabot abre un PR por semana; revisarlo y correr el QA gate antes de mergear.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      supabase:
+        patterns: ['@supabase/*']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

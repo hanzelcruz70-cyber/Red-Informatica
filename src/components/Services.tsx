@@ -72,7 +72,7 @@ export default function Services() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-space-2xl gap-space-sm">
           <div className="space-y-space-2xs">
             <span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Nuestras Capacidades</span>
-            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Servicios Técnicos Profesionales</h2>
+            <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Servicios técnicos en Sébaco, Matagalpa</h1>
             <p className="font-body-md text-body-md text-on-surface-variant max-w-xl">
               Soluciones informáticas estructuradas, transparentes y orientadas a prolongar la vida útil de tus equipos e impulsar tu presencia digital.
             </p>
