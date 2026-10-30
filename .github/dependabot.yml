@@ -1,5 +1,6 @@
-# Avisos automáticos de actualizaciones de dependencias (auditoría 2026-10-07).
-# Dependabot abre un PR por semana; revisarlo y correr el QA gate antes de mergear.
+# Avisos automáticos de actualizaciones de dependencias.
+# Solo propone versiones menores y parches (los saltos grandes como Tailwind 4 o TypeScript 7
+# pueden romper el sitio y se hacen a mano).
 version: 2
 updates:
   - package-ecosystem: npm
@@ -7,9 +8,12 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
-      supabase:
-        patterns: ['@supabase/*']
+      menores:
+        update-types: ["minor", "patch"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
