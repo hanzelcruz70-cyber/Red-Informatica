@@ -20,6 +20,17 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  // La copia en red-informatica.vercel.app competía con el dominio en Google: se redirige al dominio real.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "red-informatica.vercel.app" }],
+        destination: "https://red-informatica.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
