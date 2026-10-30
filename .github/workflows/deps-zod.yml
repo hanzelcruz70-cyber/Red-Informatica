@@ -1,0 +1,50 @@
+name: Migrar zod a v4 (temporal)
+on:
+  push:
+    branches: [deps/zod4]
+permissions:
+  contents: write
+jobs:
+  zod:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install zod@^4.6.7 --package-lock-only --no-audit --no-fund
+      - run: npm ci
+      - name: Revisar tipos
+        run: |
+          set -o pipefail
+          npx tsc --noEmit 2>&1 | tee tsc.log || { echo "::error::$(tail -40 tsc.log | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')"; exit 1; }
+      - name: Compilar
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee build.log || { echo "::error::$(grep -v '^\s*$' build.log | tail -60 | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')"; exit 1; }
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SITE_URL: https://red-informatica.com
+      - name: Probar validaciones
+        run: |
+          node -e '
+            const { z } = require("zod");
+            const s = z.object({ n: z.string({ error: "requerido" }).min(2, "corto"), p: z.literal(true, { error: "acepta" }) });
+            const r = s.safeParse({ p: false });
+            const msgs = r.error.issues.map((i) => i.message);
+            console.log("::notice::zod", require("zod/package.json").version, JSON.stringify(msgs));
+            if (!msgs.includes("requerido") || !msgs.includes("acepta")) process.exit(1);
+          '
+      - run: npm audit --omit=dev --audit-level=high
+      - name: Publicar en main y borrar ramas temporales
+        run: |
+          git config user.name "hanzelcruz70-cyber"
+          git config user.email "hanzelcruz70@gmail.com"
+          git rm -q .github/workflows/deps-zod.yml
+          git add package.json package-lock.json
+          git commit -q -m "Seguridad: zod 4.6 (corrige aviso de gravedad alta)"
+          git push origin HEAD:main
+          git push origin --delete deps/next-fix || true
+          git push origin --delete deps/zod4 || true
