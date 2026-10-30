@@ -35,4 +35,12 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
           NEXT_PUBLIC_SITE_URL: https://red-informatica.com
       - name: Security deps
-        run: npm audit --omit=dev --audit-level=critical
+        run: |
+          # Muestra cada paquete vulnerable como aviso en GitHub y falla solo si hay críticos
+          npm audit --omit=dev --json > audit.json || true
+          node -e '
+            const a = require("./audit.json");
+            const v = Object.values(a.vulnerabilities || {});
+            for (const x of v) console.log(`::${x.severity === "critical" ? "error" : "warning"}::${x.name} (${x.severity}) ${x.range} fix=${JSON.stringify(x.fixAvailable)}`);
+            if (v.some((x) => x.severity === "critical")) process.exit(1);
+          '
