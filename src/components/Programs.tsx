@@ -71,7 +71,6 @@ const CATEGORIAS: Categoria[] = [
     color: "bg-primary-fixed text-primary",
     programas: [
       { nombre: "AutoCAD", detalle: "Dibujo técnico 2D y 3D", logo: "autocad" },
-      { nombre: "AutoCAD Civil 3D", detalle: "Topografía y carreteras", logo: "autocad" },
       { nombre: "Revit", detalle: "Modelado BIM", logo: "revit" },
       { nombre: "SketchUp", detalle: "Modelado 3D rápido", logo: "sketchup" },
       { nombre: "Lumion", detalle: "Renders y recorridos", logo: "lumion" },
@@ -96,10 +95,8 @@ const CATEGORIAS: Categoria[] = [
     icono: ShieldCheck,
     color: "bg-primary-fixed text-primary",
     programas: [
-      { nombre: "Antivirus ESET", detalle: "Protección contra virus", logo: "eset" },
       { nombre: "Kaspersky", detalle: "Protección contra virus", logo: "kaspersky" },
       { nombre: "WinRAR", detalle: "Comprimir y descomprimir", logo: "winrar" },
-      { nombre: "7-Zip", detalle: "Compresor gratuito", logo: "7zip" },
     ],
   },
 ];
