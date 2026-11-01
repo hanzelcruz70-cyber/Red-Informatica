@@ -74,7 +74,6 @@ const CATEGORIAS: Categoria[] = [
       { nombre: "Revit", detalle: "Modelado BIM", logo: "revit" },
       { nombre: "SketchUp", detalle: "Modelado 3D rápido", logo: "sketchup" },
       { nombre: "Lumion", detalle: "Renders y recorridos", logo: "lumion" },
-      { nombre: "Slide (Rocscience)", detalle: "Estabilidad de taludes", logo: "slide" },
     ],
   },
   {

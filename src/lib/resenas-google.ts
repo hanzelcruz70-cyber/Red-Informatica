@@ -13,6 +13,14 @@ export type ResenaGoogle = {
 
 export const RESENAS_GOOGLE: ResenaGoogle[] = [
   {
+    img: "/resenas/francis-rivera.webp",
+    ancho: 567,
+    alto: 312,
+    nombre: "Francis Rivera",
+    texto:
+      "Me parece una página muy buena, está bien organizada y es fácil de navegar. La información está clara, puedes conocer sus servicios sin complicaciones y que trasmite confianza para los usuarios.",
+  },
+  {
     img: "/resenas/ivys-moreno.webp",
     ancho: 900,
     alto: 267,
