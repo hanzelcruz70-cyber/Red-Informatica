@@ -2,21 +2,6 @@ import { CheckCircle2 } from "lucide-react";
 
 const CASOS = [
   {
-    video: "/casos/virus-office.mp4",
-    poster: "/casos/virus-office.jpg",
-    etiqueta: "VIRUS · OFFICE · OPTIMIZACIÓN",
-    titulo: "Laptop con 10 virus y el cliente ni se enteraba",
-    problema:
-      "Un cliente trajo su laptop para instalarle Office y Visio, y nos comentó que la sentía lenta. Al hacerle un escaneo encontramos 10 virus que la estaban poniendo lenta.",
-    trabajo: [
-      "Instalación automática de Office y Visio",
-      "Escaneo y eliminación de los 10 virus",
-      "Optimización: fuera los programas que la frenaban y ajustes de rendimiento",
-    ],
-    antes: { valor: "10 virus", texto: "y lenta" },
-    despues: { valor: "Como nueva", texto: "limpia y optimizada" },
-  },
-  {
     video: "/casos/laptop-lenta.mp4",
     poster: "/casos/laptop-lenta.jpg",
     etiqueta: "OPTIMIZACIÓN · WINDOWS · OFFICE",
@@ -49,6 +34,17 @@ const CASOS = [
     antes: { valor: "Sin instalar", texto: "no sabía cómo hacerlo" },
     despues: { valor: "Listo", texto: "100% a distancia" },
   },
+  {
+    video: "/casos/virus-office.mp4",
+    poster: "/casos/virus-office.jpg",
+    etiqueta: "VIRUS · OFFICE · VISIO",
+    titulo: "Llegó para instalar Office y tenía 10 virus",
+    problema:
+      "Un cliente trajo su laptop para instalar Office y Visio. Al hacerle un escaneo encontramos 10 amenazas, entre malware y programas no deseados que estaban frenando el equipo.",
+    trabajo: ["Instalación de Office y Visio", "Escaneo completo y virus enviados a cuarentena", "Eliminación de programas que frenaban el equipo"],
+    antes: { valor: "10 virus", texto: "y programas que lo frenaban" },
+    despues: { valor: "0 virus", texto: "con Office y Visio instalados" },
+  },
 ];
 
 export default function Cases() {
@@ -64,7 +60,7 @@ export default function Cases() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-lg">
           {CASOS.map((c) => (
             <article key={c.video} className="rounded-2xl bg-surface-container-lowest shadow-sm overflow-hidden flex flex-col">
               <div className="bg-inverse-surface">
